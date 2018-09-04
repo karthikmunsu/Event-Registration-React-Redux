@@ -1,0 +1,16 @@
+.icon-color {
+  color: red;
+  font-size: 17px
+}
+
+.footer {
+  font-size: 17px;
+  text-align: center;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 15px 0;
+  color: #FFFFFF;
+  background-color: #1D1D1D;
+}

@@ -1,0 +1,12 @@
+.create-event-wrapper {
+  padding: 10px 10px;
+  border: 3px solid orange;
+  border-radius: 5px;
+  text-align: left;
+  line-height: 10px;
+  box-shadow: 10px 10px gray;
+}
+
+.create-event-wrapper .material-icons {
+  color: blue;
+}

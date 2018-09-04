@@ -1,0 +1,16 @@
+.header {
+  height: 50px;
+  /* background-color: darkslategray; */
+  background-image: linear-gradient(-20deg, grey, purple);
+  line-height: 50px;
+  padding: 0 15px;
+  color: white;
+  text-shadow: 2px 2px red;
+  padding: 0 !important;
+}
+
+.my-name:hover {
+  color: orange;
+  cursor: pointer;
+  text-shadow: 2px 2px black;
+}

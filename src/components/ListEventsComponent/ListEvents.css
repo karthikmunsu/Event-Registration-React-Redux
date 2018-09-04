@@ -1,0 +1,21 @@
+.list-events-wrapper {
+  width: 50%;
+  margin: 0 auto;
+  padding: 10px 10px;
+  border: 3px solid orange;
+  border-radius: 5px;
+  box-shadow: 10px 10px gray;
+}
+
+.action-btn {
+  float: right;
+  margin-left: 10px;
+}
+
+.mode_edit {
+  color: blue;
+}
+
+.delete {
+  color: red !important;
+}

@@ -1,0 +1,9 @@
+.edit-event-wrapper {
+  width: 50%;
+  border-radius: 3px;
+  border: 3px solid orange;
+  margin: 0 auto;
+  margin-top: 20px;
+  padding: 10px 10px;
+  box-shadow: 10px 8px;
+}
