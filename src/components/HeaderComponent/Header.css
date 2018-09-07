@@ -9,8 +9,10 @@
   padding: 0 !important;
 }
 
-.my-name:hover {
-  color: orange;
+.my-name {
   cursor: pointer;
-  text-shadow: 2px 2px black;
+  font-family: fantasy;
+  font-size: 2em;
+  padding: 15px 15px;
+  /* text-shadow: 2px 2px black; */
 }

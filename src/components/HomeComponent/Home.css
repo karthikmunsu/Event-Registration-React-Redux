@@ -1,3 +1,26 @@
   .home {
     height: 100%;
   }
+
+  .nav a {
+    text-decoration: none;
+    color: #000;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-size: 1.5em;
+    padding: 5px 10px;
+  }
+
+  .nav {
+    padding: 5px;
+    float: right;
+  }
+
+  .nav li {
+    display: inline-block;
+    float: none;
+  }
+
+  body {
+    background: url('../../images/background.svg') no-repeat scroll center center;
+    background-size: 100%;
+  }

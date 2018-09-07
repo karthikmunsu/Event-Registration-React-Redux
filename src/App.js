@@ -19,7 +19,7 @@ export default function App() {
           <Route exact path="/dashboard" component={DashBoard} />
           <Route exact path="/detail" component={Detail} />
         </Switch>
-        <Footer />
+        {/* <Footer /> */}
       </div>
     </BrowserRouter>;
 }
