@@ -1,6 +1,7 @@
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import fetchEvents, { fetchEventDetails } from ".././actions/ListEventsActions";
+import removeEvent from '.././actions/DeleteEventAction';
 import ListEvents from '.././components/ListEventsComponent/ListEvents';
 
 const mapStateToProps = (state) => {
@@ -11,6 +12,7 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators({
     fetchEvents,
     fetchEventDetails,
+    removeEvent,
   }, dispatch);
 }
 

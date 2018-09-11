@@ -44,4 +44,5 @@ input:not([type]), input[type=text], input[type=password], input[type=email], in
 .login .btn {
   background-color: yellowgreen;
   color: blue;
+  clip-path: polygon(0 1%, 84% 1%, 100% 100%, 0% 100%);
 }

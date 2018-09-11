@@ -9,13 +9,14 @@ export default function createEvent(state) {
   }
 };
 
-async function insertDataIntoFirebase(state) {
+export async function insertDataIntoFirebase(state) {
+  console.log(state);
   await firebaseApp
     .database()
     .ref(`events/${state.eventName}`)
     .set({
       event_name: state.eventName,
-      event_description: state.eventName,
+      event_description: state.description,
       duration: state.duration,
       location: state.location,
       fees: state.fees,
@@ -23,9 +24,9 @@ async function insertDataIntoFirebase(state) {
       max_people: state.max_people,
       created_by: state.created_by,
       created_at: new Date(),
-      modififed_by: state.modified_by,
+      modified_by: state.modified_by,
       modified_at: new Date(),
-      participants: state.participants
+      participants: state.participants !== undefined ? state.participants : [],
     });
   return "Event has been created sucessfully!"
 }

@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from "prop-types";
-import { Collection, CollectionItem, Icon } from 'react-materialize';
-import EditEvent from '.././EditEventComponent/EditEvent';
+import { Collection, CollectionItem, Icon, Button } from 'react-materialize';
+import EditEventContainer from '../../containers/EditEventContainer';
 import './ListEvents.css';
 
 const buttonIconNames = ["delete", "mode_edit"];
+
+const events = ["data1", "data2", "data3", "data4", "data5"];
 
 export default class ListEvents extends Component {
   static propTypes = {
@@ -31,6 +33,7 @@ export default class ListEvents extends Component {
   componentDidUpdate() {
     console.log(this.props);
     const ele = document.getElementsByClassName('mode_edit');
+    const delete_ele = document.getElementsByClassName('delete');
     const len = ele.length;
     for(let i = 0; i < len; i++) {
       ele[i].addEventListener('click', (e) => {
@@ -39,6 +42,11 @@ export default class ListEvents extends Component {
         this.props.fetchEventDetails(this.props.events[i]);
         this.onEditShowHandler();
       })
+      delete_ele[i].addEventListener("click", e => {
+        e.preventDefault();
+        console.log("clicked", this.props);
+        this.props.removeEvent(this.props.events[i]);
+      });
     }
   }
 
@@ -55,27 +63,37 @@ export default class ListEvents extends Component {
   }
 
   render() {
-    return (
-      <React.Fragment>
+    return <React.Fragment>
         <div className="list-events-wrapper">
           list events component
           <Collection>
-          {this.props.events.map(data => {
-            return(
-              <CollectionItem key={data} href='#' >
-                {data}
-                <EditDeleteBtn
-                  btn_name={buttonIconNames}
-                  event_name={data}
-                />
-              </CollectionItem>
-            );
-          })}
+            {this.props.events.map(data => {
+              return <CollectionItem key={data} href="#">
+                  {data}
+                  <EditDeleteBtn btn_name={buttonIconNames} event_name={data} />
+                </CollectionItem>;
+            })}
           </Collection>
         </div>
-        {this.state.show && this.props.event_details[0] !== undefined ? <EditEvent {...this.props.event_details[0]}/> : null}
-      </React.Fragment>
-    )
+        {/* <div className="gallery-wrapper">
+          {events.map(data => {
+          return (
+            <div className='events-list' key={data}>
+              <h5>{data}</h5>
+              <div className="action-btn">
+                <Button type="submit" waves="red">
+                  Detail
+                </Button>
+                <Button type="submit" waves="red">
+                  More
+                </Button>
+              </div>
+            </div>
+          );
+        })}
+        </div> */}
+        {this.state.show && this.props.event_details[0] !== undefined ? <EditEventContainer {...this.props.event_details[0]} /> : null}
+      </React.Fragment>;
   }
 }
 

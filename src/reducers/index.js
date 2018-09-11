@@ -4,6 +4,7 @@ import LoginReducer from './LoginReducer';
 import SignUpReducer from './SignUpReducer';
 import ListEventsReducer from './ListEventsReducer';
 import CreateEventsReducer from './CreateEventsReducer';
+import EditEventReducer from './EditEventReducer';
 
 const rootReducer = combineReducers({
   HomeReducer,
@@ -11,6 +12,7 @@ const rootReducer = combineReducers({
   SignUpReducer,
   ListEventsReducer,
   CreateEventsReducer,
+  EditEventReducer,
 });
 
 export default rootReducer;

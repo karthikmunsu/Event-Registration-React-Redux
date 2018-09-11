@@ -34,21 +34,31 @@ const formFields = [
 
 export default class CreateEvent extends Component {
   static propsTypes = {
-    eventName: PropTypes.string.isRequired,
-    description: PropTypes.string.isRequired,
-    duration: PropTypes.number.isRequired,
-    location: PropTypes.string.isRequired,
-    fees: PropTypes.number.isRequired,
-    tags: PropTypes.array.isRequired,
-    max_people: PropTypes.number.isRequired,
-    created_by: PropTypes.string.isRequired,
-    modified_by: PropTypes.string.isRequired,
+    eventName: PropTypes.string,
+    description: PropTypes.string,
+    duration: PropTypes.number,
+    location: PropTypes.string,
+    fees: PropTypes.number,
+    tags: PropTypes.array,
+    max_people: PropTypes.number,
+    created_by: PropTypes.string,
+    modified_by: PropTypes.string,
     participants: PropTypes.array,
-    status: PropTypes.string.isRequired,
+    status: PropTypes.string,
   };
 
   static defaultProps = {
+    eventName: '',
+    description: '',
+    duration: 0,
+    location: '',
+    fees: 0,
+    tags: [],
+    max_people: 0,
+    created_by: '',
+    modified_by: '',
     participants: [],
+    status: '',
   }
 
   state = this.props;
@@ -84,6 +94,10 @@ export default class CreateEvent extends Component {
     this.props.createEvent(this.state); 
   }
 
+  componentDidMount() {
+    console.log(this.props);
+  }
+
   render() {
     return <div className="create-event-wrapper">
         create event component
@@ -99,10 +113,11 @@ export default class CreateEvent extends Component {
             onCloseHandler={this.onCloseHandler}
           />
           <Input type="number" name="max_people" defaultValue={(this.state.max_people).toString()} label="Max Number of Participants" s={12} onChange={this.onTextChange} required><Icon>group_add</Icon></Input>
-          <div className="save-btn"><Button waves="light">
-            Save
-            <Icon left>save</Icon>
-          </Button>
+          <div className="save-btn">
+            <Button waves="light">
+              Save
+              <Icon left>save</Icon>
+            </Button>
           </div>
         </form>
         {this.props.status}
@@ -110,7 +125,7 @@ export default class CreateEvent extends Component {
   }
 }
 
-function TagRow({tags, onCloseHandler}) {
+export function TagRow({tags, onCloseHandler}) {
   return (
     <Row>
       <Col s={12}>

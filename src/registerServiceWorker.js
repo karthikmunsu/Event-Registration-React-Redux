@@ -31,6 +31,7 @@ export default function register() {
 
     window.addEventListener('load', () => {
       const swUrl = `${process.env.PUBLIC_URL}/service-worker.js`;
+      const firebaseUrl = `${process.env.PUBLIC_URL}/firebase-messaging-sw.js`;
 
       if (isLocalhost) {
         // This is running on localhost. Lets check if a service worker still exists or not.
@@ -47,6 +48,16 @@ export default function register() {
       } else {
         // Is not local host. Just register service worker
         registerValidSW(swUrl);
+        if ("serviceWorker" in navigator) {
+          navigator.serviceWorker
+            .register("../firebase-messaging-sw.js")
+            .then(function(registration) {
+              console.log("Registration successful, scope is:", registration.scope);
+            })
+            .catch(function(err) {
+              console.log("Service worker registration failed, error:", err);
+            });
+        }
       }
     });
   }
@@ -115,3 +126,29 @@ export function unregister() {
     });
   }
 }
+
+// self.addEventListener("notificationclick", function(event) {
+//   const clickedNotification = event.notification;
+//   clickedNotification.close();
+//   const promiseChain = clients
+//     .matchAll({
+//       type: "window",
+//       includeUncontrolled: true
+//     })
+//     .then(windowClients => {
+//       let matchingClient = null;
+//       for (let i = 0; i < windowClients.length; i++) {
+//         const windowClient = windowClients[i];
+//         if (windowClient.url === feClickAction) {
+//           matchingClient = windowClient;
+//           break;
+//         }
+//       }
+//       if (matchingClient) {
+//         return matchingClient.focus();
+//       } else {
+//         return clients.openWindow(feClickAction);
+//       }
+//     });
+//   event.waitUntil(promiseChain);
+// });

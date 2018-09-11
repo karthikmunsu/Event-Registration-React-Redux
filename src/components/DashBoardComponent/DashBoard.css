@@ -1,4 +1,15 @@
 .create-event-wrapper {
   width: 50%;
-  margin: 0 auto;
+  /* margin: 0 auto; */
+  float: left;
+  padding: 15px 10px;
+}
+
+.dashboard-wrapper {
+  padding: 15px 10px;
+}
+
+h3 {
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  font-size: 2em;
 }

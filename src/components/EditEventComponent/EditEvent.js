@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { PropTypes } from 'prop-types';
 import Tags from ".././TagsComponent/Tags";
+import { TagRow } from '.././CreateEventComponent/CreateEvent';
 import { Row, Input, Button, Icon, Chip, Col } from "react-materialize";
 import './EditEvent.css';
 
@@ -52,6 +53,31 @@ export default class EditEvent extends Component {
     })
   }
 
+  onTagChangeHandler = (e) => {
+    const code  = (e.keyCode ? e.keyCode : e.which)
+    if(code === 13) {
+      e.preventDefault();
+      let tag = this.state.tags;
+      tag.push(e.target.value);
+      this.setState(prevState => ({
+        tags: tag,
+      }))
+      e.target.value = "";
+    }
+    e.persist();
+  }
+
+  onCloseHandler = (data) => {
+    this.setState(prevState => ({
+      tags: prevState.tags.filter((e) => {return e !== data}),
+    }));
+  }
+
+  onSubmit = (e) => {
+    e.preventDefault();
+    this.props.updateEvent(this.state);
+  }
+
   componentWillMount() {
     this.setState(prevState => ({
       eventName: prevState.event_name,
@@ -59,18 +85,35 @@ export default class EditEvent extends Component {
     }))
   }
 
+  componentDidMount() {
+    console.log(this.props);
+  }
+
   render() {
     return (
-      <div className="edit-event-wrapper">
-        edit event component
-         <form onSubmit={this.onSubmit}>
-          <FormField
-            fields={formFields}
-            state={this.state}
-            onTextChange={this.onTextChange}
-          />
-        </form>
-      </div>
+      <React.Fragment>
+        <h3>Edit Event Component</h3>
+        <div className="edit-event-wrapper">
+          <form onSubmit={this.onSubmit}>
+            <FormField
+              fields={formFields}
+              state={this.state}
+              onTextChange={this.onTextChange}
+            />
+            <Input type="text" name="tags" label="Tags" s={12} onKeyPress={this.onTagChangeHandler}><Icon>tag_faces</Icon></Input>
+            <TagRow
+              tags={this.state.tags}
+              onCloseHandler={this.onCloseHandler}
+            />
+            <div className="save-btn">
+              <Button waves="light">
+                Update
+                <Icon left>save</Icon>
+              </Button>
+            </div>
+          </form>
+        </div>
+      </React.Fragment>
     )
   }
 }

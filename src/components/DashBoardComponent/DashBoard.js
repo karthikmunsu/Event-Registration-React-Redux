@@ -4,6 +4,7 @@ import { Button } from 'react-materialize';
 import './DashBoard.css';
 import ListEventsContainer from '../.././containers/ListEventsContainer';
 import CreateEventsContainer from '../.././containers/CreateEventsContainer';
+import PushNotification from '../.././Firebase/pushNotification';
 
 export default class DashBoard extends Component {
   state = {
@@ -24,6 +25,7 @@ export default class DashBoard extends Component {
     ele[0].addEventListener("mouseout", function() {
       ele[0].classList.remove("active");
     });
+    PushNotification();
   }
 
   componentWillUnmount() {
@@ -35,7 +37,7 @@ export default class DashBoard extends Component {
   render() {
     return (
       <div className="dashboard-wrapper">
-        DashBoard Component
+        <h3>Events List</h3>
         {this.state.show ? <CreateEventsContainer />
          : <ListEventsContainer /> }
         <FloatingButton
