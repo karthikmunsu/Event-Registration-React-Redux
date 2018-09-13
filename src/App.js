@@ -6,8 +6,12 @@ import Home from './components/HomeComponent/Home';
 import SignUp from './components/SignUpComponent/SignUp';
 import Login from './components/Login/Login';
 import DashBoard from './components/DashBoardComponent/DashBoard';
-import CreateEvent from './components/CreateEventComponent/CreateEvent';
-import Detail from "./components/DetailComponent/Detail";
+// import CreateEvent from './components/CreateEventComponent/CreateEvent';
+import CreateEventContainer from './containers/CreateEventsContainer';
+import Detail from './components/DetailComponent/Detail';
+// import Participant from './components/ParticipantComponent/Participant';
+import ParticipantContainer from './containers/ParticipantContainer';
+import NotFound from './components/NotFoundComponent/NotFound';
 
 export default function App() {
   return <BrowserRouter>
@@ -15,12 +19,13 @@ export default function App() {
         <Header />
         <Switch>
           <Route exact path="/" component={Home} />
-          <PrivateRoute path="/signup" component={SignUp} />
+          <PrivateRoute exact path="/signup" component={SignUp} />
           <PrivateRoute exact path="/login" component={Login} />
-          <PrivateRoute path="/dashboard" component={DashBoard} />
-          <PrivateRoute exact path="/createevent" component={CreateEvent} />
-          {/* <Route exact path="/dashboard" component={DashBoard} /> */}
-          <PrivateRoute path="/detail" component={Detail} />
+          <PrivateRoute exact path="/dashboard" component={DashBoard} />
+          <PrivateRoute exact path="/createevent" component={CreateEventContainer} />
+          <PrivateRoute exact path="/detail" component={Detail} />
+          <PrivateRoute exact path="/events" component={ParticipantContainer} />
+          <Route path="*" component={NotFound} />
         </Switch>
         <Footer />
       </div>

@@ -25,7 +25,7 @@ const formFields = [
   },
   {
     type: "text",
-    name: "location",
+    name: "locations",
     label: "Location",
     icon_name: "location_on"
   },
@@ -37,7 +37,7 @@ export default class CreateEvent extends Component {
     eventName: PropTypes.string,
     description: PropTypes.string,
     duration: PropTypes.number,
-    location: PropTypes.string,
+    locations: PropTypes.string,
     fees: PropTypes.number,
     tags: PropTypes.array,
     max_people: PropTypes.number,
@@ -51,7 +51,7 @@ export default class CreateEvent extends Component {
     eventName: '',
     description: '',
     duration: 0,
-    location: '',
+    locations: '',
     fees: 0,
     tags: [],
     max_people: 0,
@@ -96,6 +96,13 @@ export default class CreateEvent extends Component {
 
   componentDidMount() {
     console.log(this.props);
+    document.getElementsByTagName('input')[0].focus();
+  }
+
+  componentWillReceiveProps() {
+    console.log(this.props);
+    this.setState(this.props);
+    document.getElementsByTagName("input")[0].focus();    
   }
 
   render() {
@@ -144,6 +151,7 @@ TagRow.propTypes = {
 };
 
 function FormField({fields, state, onTextChange}) {
+  console.log(fields, state)
   return (
     <React.Fragment>
       {fields.map(field => {

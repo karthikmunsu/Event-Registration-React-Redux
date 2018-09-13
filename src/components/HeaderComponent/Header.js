@@ -1,24 +1,26 @@
 import React from 'react';
+import PropTypes, { contextTypes } from 'prop-types';
 import { Link, withRouter } from 'react-router-dom';
 import { Auth } from '../../App';
 import './Header.css';
 
 export default class Header extends React.Component {
-  // logout = withRouter(({history}) => {
-  //   Auth.signout(() => history.push('/'));
-  //   console.log(Auth.isAuthenticated);
-  // })
-
   state = {};
 
   logout = () => {
     console.log(this.props);
     Auth.signout(() => {});
+    this.navigationHandler('login');
+  }
+
+  navigationHandler = (path) => {
+    console.log('navigation handler');
+    this.context.router.history.push(`/${path}`);
   }
 
   render() {
     return <div className="">
-        <span className="my-name">Event Registration</span>
+        <span className="my-name" onClick={() => this.navigationHandler('/')}>Event Registration</span>
         <div className="nav">
           <ul>
             <li>
@@ -48,4 +50,8 @@ export default class Header extends React.Component {
         </div>
       </div>;
   }
+}
+
+Header.contextTypes = {
+  router: PropTypes.object.isRequired,
 }

@@ -26,7 +26,7 @@ const formFields = [
   },
   {
     type: "text",
-    name: "location",
+    name: "locations",
     label: "Location",
     icon_name: "location_on"
   },

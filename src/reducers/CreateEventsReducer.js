@@ -2,7 +2,7 @@ export const initialState = {
   eventName: '',
   description: '',
   duration: 0,
-  location: '',
+  locations: '',
   fees: 0,
   tags: [],
   max_people: 0,
@@ -15,7 +15,7 @@ export const initialState = {
 export default function(state = initialState, action) {
   switch (action.type) {
     case 'CREATE_EVENT':
-      return Object.assign({}, initialState, {status: action.status})
+      return Object.assign({}, state, {status: action.status})
     default:
       return state;
   }
