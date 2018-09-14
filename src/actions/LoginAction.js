@@ -48,5 +48,6 @@ async function FirebaseSignIn(credentials) {
     .catch(err => {
       result = {msg:err.message};
     })
+    sessionStorage.setItem('user', JSON.stringify(result));
     return result;
 }

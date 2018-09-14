@@ -4,7 +4,7 @@ import './NotFound.css';
 export default class NotFound extends Component {
   render() {
     return (
-      <div>
+      <div className="not-found">
         404 Page Not-Found
       </div>
     )

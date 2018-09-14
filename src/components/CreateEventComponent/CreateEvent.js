@@ -95,12 +95,10 @@ export default class CreateEvent extends Component {
   }
 
   componentDidMount() {
-    console.log(this.props);
     document.getElementsByTagName('input')[0].focus();
   }
 
   componentWillReceiveProps() {
-    console.log(this.props);
     this.setState(this.props);
     document.getElementsByTagName("input")[0].focus();    
   }
@@ -151,7 +149,6 @@ TagRow.propTypes = {
 };
 
 function FormField({fields, state, onTextChange}) {
-  console.log(fields, state)
   return (
     <React.Fragment>
       {fields.map(field => {

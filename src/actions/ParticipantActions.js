@@ -6,7 +6,6 @@ var eventDetails = {};
 export function ListEvents(state) {
   return dispatch => {
     getEvents().then(res => {
-      console.log(res);
       dispatch({ type: "LIST_EVENTS", events: res });
     });
   };
@@ -57,6 +56,16 @@ export function Not_Interested(eventName) {
   };
 }
 
+export function AllEvents() {
+  console.log('works')
+  return dispatch => {
+    getAllEventDetails().then(res => {
+      console.log(res);
+      dispatch({ type: "ALL_EVENTS", events: res });
+    });
+  };
+}
+
 async function getEvents() {
   let response = [];
   let details = {};
@@ -86,12 +95,11 @@ async function getEventDetails(eventName) {
 }
 
 async function UpdateParticipantList(eventName, participants) {
-  console.log(participants);
   await firebaseApp
     .database()
     .ref(`eventsList/${eventName}`)
     .set({
-      created_by: "karthik",
+      created_by: firebaseApp.auth().currentUser.email,
       participants: participants,
     });
   return "event added successfully";
@@ -106,3 +114,18 @@ async function removeParticipation(arr) {
   });
   return removedArr;
 }
+
+async function getAllEventDetails() {
+  let response = [];
+  await new Promise((resolve, reject) => {
+    resolve(eventDetails);
+  }).then(res => {
+    response = res;
+  });
+  console.log(response);
+  return response;
+}
+
+// const d = firebaseApp.database().ref('/eventsList/fleetStudio4').on('value', snapshot => {
+//   console.log(snapshot.val());
+// });

@@ -1,0 +1,7 @@
+.event-name {
+  text-transform: uppercase;
+  text-decoration: red;
+  font-style: bold;
+  font-size: 20px;
+  cursor: pointer;
+}

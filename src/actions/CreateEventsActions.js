@@ -11,7 +11,6 @@ export default function createEvent(state) {
 };
 
 export async function insertDataIntoFirebase(state) {
-  console.log(USER_EMAIL);
   await firebaseApp
     .database()
     .ref(`events/${state.eventName}`)
@@ -23,9 +22,9 @@ export async function insertDataIntoFirebase(state) {
       fees: state.fees,
       tags: state.tags,
       max_people: state.max_people,
-      created_by: '',
+      created_by: USER_EMAIL,
       created_at: DATE,
-      modified_by: '',
+      modified_by: USER_EMAIL,
       modified_at: DATE,
       participants: state.participants !== undefined ? state.participants : []
     })
@@ -40,7 +39,7 @@ export async function insertIntoEventsList(eventName, max_people) {
       .database()
       .ref(`eventsList/${eventName}`)
       .set({
-        created_by: '',
+        created_by: USER_EMAIL,
         max_people: max_people,
       });
   return 'event added successfully';

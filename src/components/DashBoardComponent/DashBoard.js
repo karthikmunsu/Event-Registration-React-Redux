@@ -30,8 +30,8 @@ export default class DashBoard extends Component {
 
   componentWillUnmount() {
     const ele = document.getElementsByClassName("fixed-action-btn");
-    ele[0].removeEventListener('mouseover');
-    ele[0].removeEventListener("mouseout");
+    ele[0].removeEventListener("mouseover", function() {});
+    ele[0].removeEventListener("mouseout", function() {});
   }
 
   render() {

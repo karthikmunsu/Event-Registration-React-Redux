@@ -1,7 +1,11 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+import { Auth } from '../.././App';
+import { USER_NAME } from '../.././actions/UserDetails';
+import { Button } from 'react-materialize';
 import LoginContainer from "../../containers/LoginContainer";
-import './Home.css';
 import SignUpContainer from '../../containers/SignUpContainer';
+import "./Home.css";
 
 export default class Home extends React.Component {
   state = {
@@ -21,9 +25,20 @@ export default class Home extends React.Component {
   render() {
     return (
       <div className="home">
-        {this.state.toShow ? <LoginContainer show={this.show} />
-        : <SignUpContainer show={this.show} /> }
+        {!Auth.isAuthenticated ? (this.state.toShow ? <LoginContainer show={this.show} />
+        : <SignUpContainer show={this.show} />) : <WelcomeScreen /> }
       </div>
     );
   }
+}
+
+export const WelcomeScreen = () => {
+  return (
+    <div className="welcome-screen">
+      <p><b>Hi {USER_NAME}</b>, Welcome to Event Registration.</p>
+      <Button type="submit" waves="green">
+        <Link to="/dashboard">Get Started</Link>
+      </Button>
+    </div>
+  );
 }

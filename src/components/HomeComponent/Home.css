@@ -24,3 +24,19 @@
     background: url('../../images/background.svg') no-repeat scroll center center;
     background-size: 100%;
   }
+
+  .welcome-screen {
+    text-align: center;
+    margin-top: 9em;
+  }
+
+  .welcome-screen .btn {
+    background-color: yellowgreen;
+    color: blue;
+    clip-path: polygon(0 1%, 84% 1%, 100% 100%, 0% 100%);
+  }
+
+  .welcome-screen p{
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-size: 1.5em;
+  }
