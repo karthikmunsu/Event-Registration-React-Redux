@@ -5,8 +5,17 @@
   text-align: left;
   line-height: 10px;
   box-shadow: 10px 10px gray;
+  margin-left: 10px;
 }
 
 .create-event-wrapper .material-icons {
   color: blue;
+}
+
+.create-event-wrapper label {
+  color: black;
+}
+
+.active {
+  background-color: transparent !important;
 }

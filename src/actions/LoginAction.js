@@ -44,10 +44,10 @@ async function FirebaseSignIn(credentials) {
     .signInWithEmailAndPassword(credentials.email, credentials.password)
     .then(res => {
       result = res.user;
+      sessionStorage.setItem("user", JSON.stringify(result));
     })
     .catch(err => {
       result = {msg:err.message};
     })
-    sessionStorage.setItem('user', JSON.stringify(result));
     return result;
 }

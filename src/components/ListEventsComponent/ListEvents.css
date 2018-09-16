@@ -57,5 +57,5 @@
 .events-list:hover {
   opacity: 10%;
   color: red;
-  background: url('../../images/bg.png');
+  /* background: url('../../images/bg.png'); */
 }

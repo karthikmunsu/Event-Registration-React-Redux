@@ -17,8 +17,8 @@ export default function App() {
         <Header />
         <Switch>
           <Route exact path="/" component={Home} />
-          <PrivateRoute exact path="/signup" component={SignUp} />
-          <PrivateRoute exact path="/login" component={Login} />
+          <Route exact path="/signup" component={SignUp} />
+          <Route exact path="/login" component={Login} />
           <PrivateRoute exact path="/dashboard" component={DashBoard} />
           <PrivateRoute exact path="/createevent" component={CreateEventContainer} />
           <PrivateRoute exact path="/detail" component={Detail} />
@@ -38,7 +38,7 @@ export const Auth = {
   },
   signout(cb) {
     this.isAuthenticated = false;
-    console.log(this.isAuthenticated);
+    sessionStorage.removeItem("user");
     setTimeout(cb, 100);
   }
 }

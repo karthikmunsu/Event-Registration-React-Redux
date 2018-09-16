@@ -46,3 +46,13 @@ input:not([type]), input[type=text], input[type=password], input[type=email], in
   color: blue;
   clip-path: polygon(0 1%, 84% 1%, 100% 100%, 0% 100%);
 }
+
+.disabled {
+    pointer-events: none;
+    opacity: 0.5;
+}
+
+.error {
+  color: red;
+  font-size: 1em;
+}

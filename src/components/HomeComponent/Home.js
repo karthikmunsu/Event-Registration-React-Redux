@@ -10,6 +10,7 @@ import "./Home.css";
 export default class Home extends React.Component {
   state = {
     toShow: true,
+    showSpinner: false,
   };
 
   show = () => {
@@ -23,12 +24,23 @@ export default class Home extends React.Component {
   }
 
   render() {
-    return (
-      <div className="home">
-        {!Auth.isAuthenticated ? (this.state.toShow ? <LoginContainer show={this.show} />
-        : <SignUpContainer show={this.show} />) : <WelcomeScreen /> }
-      </div>
-    );
+    return <div className="home">
+        {!Auth.isAuthenticated ? (
+          this.state.toShow ? (
+            <LoginContainer
+              showSpinner={this.state.showSpinner}
+              show={this.show}
+            />
+          ) : (
+            <SignUpContainer
+              showSpinner={this.state.showSpinner}
+              show={this.show}
+            />
+          )
+        ) : (
+          <WelcomeScreen />
+        )}
+      </div>;
   }
 }
 

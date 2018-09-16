@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Tags from '.././TagsComponent/Tags';
 import { Row, Input, Button, Icon, Chip, Col } from 'react-materialize';
+import Overlay from '.././OverlayComponent/Overlay';
 import './CreateEvent.css';
 
 const formFields = [
@@ -45,6 +46,7 @@ export default class CreateEvent extends Component {
     modified_by: PropTypes.string,
     participants: PropTypes.array,
     status: PropTypes.string,
+    show: PropTypes.bool,
   };
 
   static defaultProps = {
@@ -59,6 +61,7 @@ export default class CreateEvent extends Component {
     modified_by: '',
     participants: [],
     status: '',
+    show: false,
   }
 
   state = this.props;
@@ -92,6 +95,13 @@ export default class CreateEvent extends Component {
   onSubmit = (e) => {
     e.preventDefault();
     this.props.createEvent(this.state); 
+    this.onOverlayToggle();
+  }
+
+  onOverlayToggle = () => {
+    this.setState(prevState => ({
+      show: !prevState.show,
+    }))
   }
 
   componentDidMount() {
@@ -99,13 +109,20 @@ export default class CreateEvent extends Component {
   }
 
   componentWillReceiveProps() {
+    console.log(this.props);
+    this.onOverlayToggle();    
     this.setState(this.props);
-    document.getElementsByTagName("input")[0].focus();    
+    this.setState({
+      tags: [],
+      fees: 0,
+      max_people: 0,
+      duration: 0,
+    })
+    document.getElementsByTagName("input")[0].focus();
   }
 
   render() {
     return <div className="create-event-wrapper">
-        create event component
         <form onSubmit={this.onSubmit}>
           <FormField
             fields={formFields}
@@ -126,6 +143,9 @@ export default class CreateEvent extends Component {
           </div>
         </form>
         {this.props.status}
+        <Overlay
+          show={this.state.show}
+        />
       </div>;
   }
 }

@@ -125,7 +125,3 @@ async function getAllEventDetails() {
   console.log(response);
   return response;
 }
-
-// const d = firebaseApp.database().ref('/eventsList/fleetStudio4').on('value', snapshot => {
-//   console.log(snapshot.val());
-// });

@@ -28,10 +28,10 @@ export default class Header extends React.Component {
             {!Auth.isAuthenticated ? 
             <React.Fragment>
               <li>
-                <Link to="/about">Signup</Link>
+                <Link to="/signup">Signup</Link>
               </li>
               <li>
-                <Link to="/about">Login</Link>
+                <Link to="/login">Login</Link>
               </li>
             </React.Fragment>
             : <React.Fragment>

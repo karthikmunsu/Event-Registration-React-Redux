@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
+import PropTypes, { contextTypes } from 'prop-types';
+import { Redirect } from 'react-router-dom';
 import { Row, Input, Button, Icon } from "react-materialize";
 import { css } from "react-emotion";
 import { PacmanLoader } from "react-spinners";
@@ -11,6 +14,19 @@ const override = css`
 `;
 
 export default class Login extends Component {
+  static propTypes = {
+    show: PropTypes.func,
+    res: PropTypes.object,
+  }
+
+  static defaultProps = {
+    show: () => {
+      
+    },
+    res: {},
+  }
+
+
   state = this.props;
 
   onChangeHandler = (e) => {
@@ -29,15 +45,39 @@ export default class Login extends Component {
   onSubmit = (e) => {
     console.log(this.state);
     e.preventDefault();
+    this.ToggleSpinner();
+    const ele = ReactDOM.findDOMNode(this.refs.login);
+    ele.className += " disabled";
     this.props.UserSignIn(this.state); 
+  }
+
+  ToggleSpinner = () => {
+    this.setState(prevState => ({
+      showSpinner: !prevState.showSpinner,
+    }))
+  }
+
+  componentDidMount() {
+    console.log(this.context);
   }
 
   //this.props.res will receive all the user information from the firebase.
 
+  componentDidUpdate() {
+    if(this.props.res.hasOwnProperty('email')) {
+      this.ToggleSpinner();
+      window.location.reload();
+    }
+    if(this.props.res.hasOwnProperty('msg')) {
+      const ele = ReactDOM.findDOMNode(this.refs.login);
+      ele.className = "login";
+    }
+  }
+
   render() {
     return (
       <React.Fragment>
-        <div className="login">
+        <div ref="login" className="login">
           <form onSubmit={this.onSubmit}>
             <Input name="email" type="email" label="Email" s={12} value={this.state.email} required onChange={this.onChangeHandler}>
               <Icon className="login-icon">account_circle</Icon>
@@ -45,12 +85,13 @@ export default class Login extends Component {
             <Input name="password" type="password" label="Password" s={12} value={this.state.password} required onChange={this.onChangeHandler}>
               <Icon className="login-icon">vpn_key</Icon>
             </Input>
-            <Button type="" waves="red" onClick={this.props.show}>
+            <Button type="button" waves="red" onClick={this.props.show}>
               Signup
             </Button>
             <Button style={{float: 'right'}} type="submit" waves="red">
               Login
             </Button>
+            <div className="error">{this.props.res.msg}</div>
           </form>
         </div>
         <div>
@@ -59,10 +100,14 @@ export default class Login extends Component {
             sizeUnit={"px"}
             size={30}
             color={'#123abc'}
-            loading={true}
+            loading={this.state.showSpinner}
           />
         </div>
       </React.Fragment>
     );
   }
+}
+
+Login.contextTypes = {
+  router: PropTypes.object.isRequired,
 }
