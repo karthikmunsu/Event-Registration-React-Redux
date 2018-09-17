@@ -1,0 +1,9 @@
+.about {
+  top: 30%;
+  left: 40%;
+  position: absolute;
+}
+
+.about li {
+  font-size: 2em;
+}

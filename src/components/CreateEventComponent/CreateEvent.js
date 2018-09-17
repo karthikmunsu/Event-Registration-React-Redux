@@ -109,7 +109,6 @@ export default class CreateEvent extends Component {
   }
 
   componentWillReceiveProps() {
-    console.log(this.props);
     this.onOverlayToggle();    
     this.setState(this.props);
     this.setState({

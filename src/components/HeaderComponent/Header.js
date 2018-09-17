@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes, { contextTypes } from 'prop-types';
-import { Link, withRouter } from 'react-router-dom';
+import { NavLink ,Link, withRouter } from 'react-router-dom';
+import { Icon, Badge } from 'react-materialize';
 import { Auth } from '../../App';
 import logo from '../../images/event-logo.png';
 import './Header.css';
@@ -10,7 +11,7 @@ export default class Header extends React.Component {
 
   logout = () => {
     Auth.signout(() => {});
-    this.navigationHandler('login');
+    this.navigationHandler('');
   }
 
   navigationHandler = (path) => {
@@ -19,31 +20,52 @@ export default class Header extends React.Component {
 
   render() {
     return <div className="header">
-        <span className="my-name"><Link to="/"><img src={logo} alt="logo" /></Link></span>
+        <span className="my-name">
+          <Link to="/">
+            <img src={logo} alt="logo" />
+          </Link>
+        </span>
         <div className="nav">
           <ul>
             <li>
-              <Link to="/about">About us</Link>
+              <NavLink to="/about" activeClassName="selected">
+                About us
+              </NavLink>
             </li>
-            {!Auth.isAuthenticated ? 
-            <React.Fragment>
-              <li>
-                <Link to="/signup">Signup</Link>
-              </li>
-              <li>
-                <Link to="/login">Login</Link>
-              </li>
-            </React.Fragment>
-            : <React.Fragment>
+            {!Auth.isAuthenticated ? <React.Fragment>
                 <li>
-                  <Link to="/dashboard">Dashboard</Link>
+                  <NavLink to="/signup" activeClassName="selected">
+                    Signup
+                  </NavLink>
                 </li>
                 <li>
-                  <Link to="/events">Events</Link>
+                  <NavLink to="/login" activeClassName="selected">
+                    Login
+                  </NavLink>
+                </li>
+              </React.Fragment> : <React.Fragment>
+                <li>
+                  <NavLink to="/dashboard" activeClassName="selected">
+                    Dashboard
+                  </NavLink>
                 </li>
                 <li>
-                  <Link to="/createevent">Create-Event</Link>
+                  <NavLink to="/events" activeClassName="selected">
+                    Events
+                  </NavLink>
                 </li>
+                <li>
+                  <NavLink to="/createevent" activeClassName="selected">
+                    Create-Event
+                  </NavLink>
+                </li>
+                {/* <li>
+                  <NavLink to="/createevent" activeClassName="selected">
+                    <Badge>
+                      <Icon>notifications</Icon>1
+                    </Badge>
+                  </NavLink>
+                </li> */}
                 <li>
                   <a onClick={this.logout}>Logout</a>
                 </li>

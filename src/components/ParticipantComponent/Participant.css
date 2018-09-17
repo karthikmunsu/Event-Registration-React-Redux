@@ -4,10 +4,12 @@
   border: 3px solid orange;
   box-shadow: 5px 5px;
   margin-left: 5px;
+  height: 600px;
+  overflow-x: auto;
 }
 
 .participants .btn {
-  background-color: yellowgreen;
+  background-color: orange;
   color: blue;
   clip-path: polygon(0 1%, 84% 1%, 100% 100%, 0% 100%);
 }
@@ -15,4 +17,16 @@
 h3 {
   font-size: 1.5em;
   font-style: italic;
+}
+
+.other-event {
+  float: left;
+  background-color: #777;
+  width: 100%;
+  margin-bottom: 5px;
+  padding: 10px 10px;
+}
+
+.other-event .other-event-name span {
+  text-transform: uppercase;
 }

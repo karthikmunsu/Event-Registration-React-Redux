@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import PropTypes from "prop-types";
 import { Collection, CollectionItem, Icon, Button } from 'react-materialize';
 import EditEventContainer from '../../containers/EditEventContainer';
+import CustomModal from '../CustomModalComponent/CustomModal';
+import ActionModal from '../ActionModalComponent/ActionModal';
+import { USER_EMAIL } from '../../actions/UserDetails';
 import './ListEvents.css';
 
 const buttonIconNames = ["delete", "mode_edit"];
@@ -14,6 +17,7 @@ export default class ListEvents extends Component {
     event_details: PropTypes.array,
     fetchEvents: PropTypes.func.isRequired,
     fetchEventDetails: PropTypes.func.isRequired,
+    showLoader: PropTypes.bool.isRequired,
   };
 
   static defaultProps = {
@@ -24,29 +28,48 @@ export default class ListEvents extends Component {
   state = {
     event: '',
     show: false,
+    eventToEdit: '',
+    update: true,
+    showActionModal: false,
+    eve_name: '',
   }
 
-  componentWillMount() {
+  ActionModalHandler = (name) => {
+    this.setState(prevState => ({
+      showActionModal: !prevState.showActionModal,
+      eve_name: name,
+    }))
+  }
+
+  ActionModalRemoveEvent = () => {
+    this.props.removeEvent(this.state.eve_name);
     this.props.fetchEvents();
   }
 
+  componentDidMount() {
+    this.props.fetchEvents();
+    this.props.getAllEvents();
+  }
+
   componentDidUpdate() {
-    console.log(this.props);
-    const ele = document.getElementsByClassName('mode_edit');
-    const delete_ele = document.getElementsByClassName('delete');
-    const len = ele.length;
-    for(let i = 0; i < len; i++) {
-      ele[i].addEventListener('click', (e) => {
-        e.preventDefault();
-        console.log('clicked', this.props);
-        this.props.fetchEventDetails(this.props.events[i]);
-        this.onEditShowHandler();
-      })
-      delete_ele[i].addEventListener("click", e => {
-        e.preventDefault();
-        console.log("clicked", this.props);
-        this.props.removeEvent(this.props.events[i]);
-      });
+    if(this.state.update) {
+      const ele = document.getElementsByClassName('mode_edit');
+      const delete_ele = document.getElementsByClassName('delete');
+      const len = ele.length;
+      for(let i = 0; i < len; i++) {
+        ele[i].addEventListener('click', (e) => {
+          e.preventDefault();
+          this.setState({
+            eventToEdit: this.props.events[i],
+            update: false,
+          });
+          this.onEditShowHandler();
+        })
+        delete_ele[i].addEventListener("click", e => {
+          e.preventDefault();
+          this.ActionModalHandler(this.props.events[i]);
+        });
+      }
     }
   }
 
@@ -55,49 +78,44 @@ export default class ListEvents extends Component {
   }
 
   onEditShowHandler = () => {
-    console.log(this.state);    
     this.setState(prevState => ({
       show: !prevState.show,
     }));
-    console.log(this.state);
+  }
+
+  isMyEvent = () => {
+    this.props.fetchEventDetails();
   }
 
   render() {
     return <React.Fragment>
         <div className="list-events-wrapper">
-          list events component
           <Collection>
-            {this.props.events.map(data => {
+            {this.props.events.map((data, index) => {
               return <CollectionItem key={data} href="#">
                   {data}
-                  <EditDeleteBtn btn_name={buttonIconNames} event_name={data} />
+                  {this.props.all_event_details.length !== 0 ? this.props.all_event_details[index][data].created_by === USER_EMAIL ? 
+                  <EditDeleteBtn btn_name={buttonIconNames} onEdit={this.onEditShowHandler} event_name={data} /> : null : null}
                 </CollectionItem>;
             })}
           </Collection>
         </div>
-        {/* <div className="gallery-wrapper">
-          {events.map(data => {
-          return (
-            <div className='events-list' key={data}>
-              <h5>{data}</h5>
-              <div className="action-btn">
-                <Button type="submit" waves="red">
-                  Detail
-                </Button>
-                <Button type="submit" waves="red">
-                  More
-                </Button>
-              </div>
-            </div>
-          );
-        })}
-        </div> */}
-        {this.state.show && this.props.event_details[0] !== undefined ? <EditEventContainer {...this.props.event_details[0]} /> : null}
+        <CustomModal
+            show={this.state.show}
+            closeHandler={this.onEditShowHandler}
+        >
+        {this.state.show && this.state.eventToEdit !== ''  ? <EditEventContainer eName={this.state.eventToEdit} {...this.props} /> : null}
+        </CustomModal>
+        {this.state.showActionModal ? <ActionModal
+          event_name={this.state.eve_name}
+          closeHandler={this.ActionModalHandler}
+          actionHandler={this.ActionModalRemoveEvent}
+        /> : null}
       </React.Fragment>;
   }
 }
 
-function EditDeleteBtn({btn_name, event_name}) {
+function EditDeleteBtn({btn_name, event_name, onEdit}) {
   return (
     <React.Fragment>
       {btn_name.map(name => <Icon key={name} className={`action-btn ${name}`}>{name}</Icon>)}

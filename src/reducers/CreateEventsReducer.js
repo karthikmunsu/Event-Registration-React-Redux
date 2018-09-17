@@ -10,6 +10,8 @@ export const initialState = {
   modified_by: '',
   participants: [],
   status: '',
+  event_name: '',
+  event_description: '',
 };
 
 export default function(state = initialState, action) {

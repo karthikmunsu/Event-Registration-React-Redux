@@ -4,7 +4,6 @@ import { UserSignUp } from ".././actions/LoginAction";
 import SignUp from '../components/SignUpComponent/SignUp';
 
 const mapStateToProps = (state) => {
-  console.log(state.SignUpReducer)
   return state.SignUpReducer;
 };
 

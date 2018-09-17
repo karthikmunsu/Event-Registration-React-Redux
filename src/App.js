@@ -9,6 +9,7 @@ import DashBoard from './components/DashBoardComponent/DashBoard';
 import CreateEventContainer from './containers/CreateEventsContainer';
 import Detail from './components/DetailComponent/Detail';
 import ParticipantContainer from './containers/ParticipantContainer';
+import Aboutus from './components/AboutusComponent/Aboutus';
 import NotFound from './components/NotFoundComponent/NotFound';
 
 export default function App() {
@@ -19,6 +20,7 @@ export default function App() {
           <Route exact path="/" component={Home} />
           <Route exact path="/signup" component={SignUp} />
           <Route exact path="/login" component={Login} />
+          <Route exact path="/about" component={Aboutus} />
           <PrivateRoute exact path="/dashboard" component={DashBoard} />
           <PrivateRoute exact path="/createevent" component={CreateEventContainer} />
           <PrivateRoute exact path="/detail" component={Detail} />

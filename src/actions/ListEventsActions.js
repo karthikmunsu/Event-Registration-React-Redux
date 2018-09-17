@@ -24,6 +24,17 @@ export function fetchEventDetails(eventName) {
   }
 }
 
+export function getAllEvents() {
+  return (dispatch) => {
+    getAllEventsList().then(res => {
+      dispatch({
+        type: 'ALL_EVENT_DETAILS',
+        all_event_details: [res],
+      });
+    })
+  }
+}
+
 async function getEvents() {
   let response = [];
   let details = {};
@@ -49,4 +60,17 @@ async function getEventDetails(eventName) {
     response = res;
   });
   return response;
+}
+
+
+async function getAllEventsList() {
+  let response = [];
+  await new Promise((resolve, reject) => {
+    getEvents().then(() => {
+      resolve(eventDetails);
+    })
+  }).then(res => {
+    response = res;
+  });
+  return response
 }

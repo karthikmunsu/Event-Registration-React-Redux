@@ -1,7 +1,6 @@
 import firebaseApp from '.././Firebase/firebase';
 
 export function UserSignUp(credentials) {
-  console.log('signup');
   return (dispatch) => {
     FirebaseSignUp(credentials).then(res => dispatch({
       type: 'SIGN_UP',
@@ -11,7 +10,6 @@ export function UserSignUp(credentials) {
 }
 
 export function UserSignIn(credentials) {
-  console.log('signin')
   return dispatch => {
     FirebaseSignIn(credentials).then(res =>
       dispatch({

@@ -43,7 +43,6 @@ export default class Login extends Component {
   }
 
   onSubmit = (e) => {
-    console.log(this.state);
     e.preventDefault();
     this.ToggleSpinner();
     const ele = ReactDOM.findDOMNode(this.refs.login);
@@ -55,10 +54,6 @@ export default class Login extends Component {
     this.setState(prevState => ({
       showSpinner: !prevState.showSpinner,
     }))
-  }
-
-  componentDidMount() {
-    console.log(this.context);
   }
 
   //this.props.res will receive all the user information from the firebase.

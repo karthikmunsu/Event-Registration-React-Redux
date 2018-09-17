@@ -5,6 +5,7 @@ const initialState = {
   eventsList: [],
   status: false,
   userEmail: 'karthikmunsu@gmaill.com',
+  isUpdated: '',
 };
 
 export default function  ParticipantReducer(state = initialState, action) {
@@ -14,9 +15,9 @@ export default function  ParticipantReducer(state = initialState, action) {
     case 'LIST_EVENTS':
       return Object.assign({}, state, {events: action.events});
     case 'INTERESTED':
-      return state;
+      return Object.assign({}, state, {isUpdated: action.events});
     case 'NOT-INTERESTED':
-      return state;
+      return Object.assign({}, state, { isUpdated: action.event_details });      
     default:
       return state;
   }

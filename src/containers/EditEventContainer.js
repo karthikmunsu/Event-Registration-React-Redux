@@ -1,5 +1,6 @@
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
+import { fetchEventDetails } from ".././actions/ListEventsActions";
 import updateEvent from ".././actions/UpdateEventActions";
 import EditEvent from ".././components/EditEventComponent/EditEvent";
 
@@ -10,7 +11,8 @@ const mapStateToProps = state => {
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
-      updateEvent
+      updateEvent,
+      fetchEventDetails,
     },
     dispatch
   );

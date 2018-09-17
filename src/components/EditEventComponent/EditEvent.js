@@ -3,18 +3,19 @@ import { PropTypes } from 'prop-types';
 import Tags from ".././TagsComponent/Tags";
 import { TagRow } from '.././CreateEventComponent/CreateEvent';
 import { Row, Input, Button, Icon, Chip, Col } from "react-materialize";
+import Overlay from '.././OverlayComponent/Overlay';
 import './EditEvent.css';
 
 const formFields = [
   {
     type: "text",
-    name: "eventName",
+    name: "event_name",
     label: "Event Name",
     icon_name: "note_add"
   },
   {
     type: "text",
-    name: "description",
+    name: "event_description",
     label: "Description",
     icon_name: "assignment"
   },
@@ -45,11 +46,12 @@ const formFields = [
 ];
 
 export default class EditEvent extends Component {
+
   state = this.props;
 
-  onTextChange = (e) => {
+  onTextChange = (e, name) => {
      this.setState({
-      [e.target.name]: e.target.value,
+      [name]: e.target.value,
     })
   }
 
@@ -76,31 +78,45 @@ export default class EditEvent extends Component {
   onSubmit = (e) => {
     e.preventDefault();
     this.props.updateEvent(this.state);
+    this.onToggleLoader();
   }
 
   componentWillMount() {
+    this.props.fetchEventDetails(this.props.eName);
     this.setState(prevState => ({
-      eventName: prevState.event_name,
-      description: prevState.event_description,
+      showLoader: false,
+    }))
+    this.setState(this.props);
+  }
+
+  onToggleLoader = () => {
+    this.setState(prevState => ({
+      showLoader: !prevState.showLoader,
     }))
   }
 
-  componentDidMount() {
-    console.log(this.props);
+  componentDidUpdate() {
+    if(this.props.hasOwnProperty('update') && !this.state.hasOwnProperty('update')) {
+      this.setState(this.props);
+      this.onToggleLoader();
+    }
+  }
+
+  componentWillReceiveProps() {
+    if(this.state.showLoader) this.onToggleLoader();
   }
 
   render() {
     return (
       <React.Fragment>
-        <h3>Edit Event Component</h3>
-        <div className="edit-event-wrapper">
+        {this.state.event_name !== '' && this.props.event_name !== '' ? <div className="edit-event-wrapper">
           <form onSubmit={this.onSubmit}>
             <FormField
               fields={formFields}
               state={this.state}
               onTextChange={this.onTextChange}
             />
-            <Input type="text" name="tags" label="Tags" s={12} onKeyPress={this.onTagChangeHandler}><Icon>tag_faces</Icon></Input>
+            <Input type="text" name="tags" value="" label="Tags" s={12} onKeyPress={this.onTagChangeHandler}><Icon>tag_faces</Icon></Input>
             <TagRow
               tags={this.state.tags}
               onCloseHandler={this.onCloseHandler}
@@ -111,8 +127,12 @@ export default class EditEvent extends Component {
                 <Icon left>save</Icon>
               </Button>
             </div>
+            {this.props.status}
           </form>
-        </div>
+        </div> : null}
+        <Overlay
+          show={this.state.showLoader}
+        />
       </React.Fragment>
     )
   }
@@ -128,10 +148,10 @@ const FormField = ({ fields, state, onTextChange }) => {
             key={field.name}
             type={field.type}
             name={field.name}
-            value={state[field.name]}
+            value={state[field.name].toString()}
             label={field.label}
             s={12}
-            onChange={onTextChange}
+            onChange={(e) => onTextChange(e, field.name)}
             required
           >
             <Icon>{field.icon_name}</Icon>
@@ -142,10 +162,10 @@ const FormField = ({ fields, state, onTextChange }) => {
             key={field.name}
             type={field.type}
             name={field.name}
-            defaultValue={state[field.name].toString()}
+            defaultValue={state[field.name]}
             label={field.label}
             s={12}
-            onChange={onTextChange}
+            onChange={(e) => onTextChange(e, field.name)}
             required
           >
             <Icon>{field.icon_name}</Icon>

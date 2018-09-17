@@ -26,3 +26,8 @@
 .nav li {
   margin-left: 10px;  
 }
+
+.selected {
+  clip-path: polygon(0 1%, 89% 1%, 132% 100%, 0% 100%);
+  background-color: orange;
+}

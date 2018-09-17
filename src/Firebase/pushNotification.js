@@ -11,7 +11,7 @@ export default function PushNotification() {
     messaging
       .getToken()
       .then(currentToken => {
-        console.log(`current token : => ${currentToken}`);
+        // console.log(`current token : => ${currentToken}`);
       })
       .catch(err => {
         console.log(`error on token retrival ${err}`);
@@ -28,7 +28,7 @@ export async function getDeviceToken() {
       return messaging.getToken();
     })
     .then(function(token) {
-      console.log(`Token => ${token}`);
+      // console.log(`Token => ${token}`);
       deviceToken = token;
       return token;
     })

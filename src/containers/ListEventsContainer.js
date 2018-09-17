@@ -1,6 +1,9 @@
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import fetchEvents, { fetchEventDetails } from ".././actions/ListEventsActions";
+import fetchEvents, {
+  fetchEventDetails,
+  getAllEvents
+} from ".././actions/ListEventsActions";
 import removeEvent from '.././actions/DeleteEventAction';
 import ListEvents from '.././components/ListEventsComponent/ListEvents';
 
@@ -13,6 +16,7 @@ function mapDispatchToProps(dispatch) {
     fetchEvents,
     fetchEventDetails,
     removeEvent,
+    getAllEvents,
   }, dispatch);
 }
 

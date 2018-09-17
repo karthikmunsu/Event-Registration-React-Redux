@@ -14,7 +14,7 @@ export function ListEvents(state) {
 export function Interested(eventName) {
   return dispatch => {
     getEventDetails(eventName).then(res => {
-      let obj = res.participants ? res.participants : [];
+      let obj = [];      
       getDeviceToken().then(res => {
         obj.push({
           email: firebaseApp.auth().currentUser.email,
@@ -23,7 +23,7 @@ export function Interested(eventName) {
         });
         UpdateParticipantList(eventName, obj)
           .then(res => {
-            dispatch({ type: "EVENT_DETAILS", event_details: [res] });
+            dispatch({ type: "INTERESTED", event_details: [res] });
           })
           .catch(err => {
             console.log(err);
@@ -38,12 +38,14 @@ export function Interested(eventName) {
 export function Not_Interested(eventName) {
   return dispatch => {
     getEventDetails(eventName).then(res => {
-      let obj = res.participants ? res.participants : [];
+      let obj = [];            
       removeParticipation(obj).then((res) => {
         UpdateParticipantList(eventName, res)
           .then(res => {
-            dispatch({ type: "EVENT_DETAILS", event_details: [res] });
-            eventDetails[eventName].participants = res;
+            dispatch({
+              type: "NOT-INTERESTED",
+              event_details: [res]
+            });
           })
           .catch(err => {
             console.log(err);
@@ -57,10 +59,8 @@ export function Not_Interested(eventName) {
 }
 
 export function AllEvents() {
-  console.log('works')
   return dispatch => {
     getAllEventDetails().then(res => {
-      console.log(res);
       dispatch({ type: "ALL_EVENTS", events: res });
     });
   };
@@ -97,11 +97,12 @@ async function getEventDetails(eventName) {
 async function UpdateParticipantList(eventName, participants) {
   await firebaseApp
     .database()
-    .ref(`eventsList/${eventName}`)
-    .set({
-      created_by: firebaseApp.auth().currentUser.email,
-      participants: participants,
+    .ref()
+    .child(`eventsList/${eventName}`)
+    .update({
+      participants: participants
     });
+    getEvents().then(() => AllEvents());
   return "event added successfully";
 }
 
@@ -122,6 +123,5 @@ async function getAllEventDetails() {
   }).then(res => {
     response = res;
   });
-  console.log(response);
   return response;
 }

@@ -1,0 +1,50 @@
+.action-modal-overlay {
+  position: fixed; 
+  width: 100%;
+  height: 100%;
+  top: 0; 
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 2;
+  overflow-x: auto;
+  text-align: center;
+}
+
+.action-modal-overlay .action-container {
+  background-color: oldlace;
+  width: 50%;
+  height: 16em;
+  margin-top: 20%;
+  margin-left: 25%;
+  border-radius: 3px;
+  padding: 5px 5px;
+}
+
+.action-modal-overlay .action-container .btn-grp {
+  margin-top: .5em;
+  margin-bottom: .5em;
+  font-size: 1.5em;
+}
+
+.action-modal-overlay .action-container .btn-grp .material-icons {
+  color: purple;
+  font-size: 3em;
+}
+
+.action-modal-overlay .btn {
+  margin-top: 1em;
+  background-color: yellowgreen;
+  color: blue;
+  margin-right: 2em;
+  margin-left: 2em;
+  font-style: bold;
+  font-size: 1.2em;
+  clip-path: polygon(0 1%, 84% 1%, 100% 100%, 0% 100%);
+}
+
+.action-modal-overlay .cancel{
+  background-color: red;
+  color: #FFF;
+}

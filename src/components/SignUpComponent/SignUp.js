@@ -55,10 +55,6 @@ export default class SignUp extends Component {
     }))
   }
 
-  componentDidMount(){
-    console.log(this.props, this.context);
-  }
-
   componentWillReceiveProps() {
     this.ToggleSpinner();
     this.onReset();
