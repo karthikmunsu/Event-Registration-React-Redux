@@ -94,8 +94,7 @@ export default class ListEvents extends Component {
             {this.props.events.map((data, index) => {
               return <CollectionItem key={data} href="#">
                   {data}
-                  {this.props.all_event_details.length !== 0 ? this.props.all_event_details[index][data].created_by === USER_EMAIL ? 
-                  <EditDeleteBtn btn_name={buttonIconNames} onEdit={this.onEditShowHandler} event_name={data} /> : null : null}
+                  {this.props.all_event_details.length !== 0 ? this.props.all_event_details[0][data].created_by === USER_EMAIL ? <EditDeleteBtn btn_name={buttonIconNames} onEdit={this.onEditShowHandler} event_name={data} /> : null : null}
                 </CollectionItem>;
             })}
           </Collection>

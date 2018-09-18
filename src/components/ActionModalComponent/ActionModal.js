@@ -33,9 +33,8 @@ export default class ActionModal extends Component {
 
   onRemoveHandler = () => {
     this.setState({ iconName: 'done' });
-    setTimeout(() => {
-      this.props.actionHandler();
-    }, 2000);
+    this.props.actionHandler();
+    this.props.closeHandler();
   }
 
   render() {
@@ -59,7 +58,7 @@ export default class ActionModal extends Component {
               waves="red"
               onMouseEnter={e => this.onHoverHandler(e, "yes")}
               onMouseLeave={this.onHoverOutHandler}
-              onClick={this.props.onRemoveHandler}
+              onClick={this.onRemoveHandler}
             >
               Yes
             </Button>

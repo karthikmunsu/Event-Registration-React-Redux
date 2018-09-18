@@ -96,6 +96,9 @@ export default class CreateEvent extends Component {
     e.preventDefault();
     this.props.createEvent(this.state); 
     this.onOverlayToggle();
+    setTimeout(() => {
+      window.location.reload();
+    }, 1500);
   }
 
   onOverlayToggle = () => {
